@@ -9,16 +9,31 @@
         Dim key As String = CreateKey()
         txtBoxKey.Text = key
 
-        ' Use inputbox to capture filename desired by user
-        ' TODO: remove default value
-        Dim Filename As String = InputBox("Enter the name of the File which you wish to encrypt", "Select File", "sample.txt")
-
         Try
+            ' Use inputbox to capture filename desired by user
+            ' TODO: remove default value
+            Dim Filename As String = InputBox("Enter the name of the File which you wish to encrypt", "Select File", "sample.txt")
             txtBox1.Text = My.Computer.FileSystem.ReadAllText("Sample Data\" & Filename)
+
             Dim encryptedText As String = Encrypt(txtBox1.Text, key)
             txtBox2.Text = encryptedText
             Dim Filename2 As String = InputBox("Enter the name of the file you wish to save", "Input filename", "test.txt")
             My.Computer.FileSystem.WriteAllText(Filename2, encryptedText, False)
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Exit Sub
+        End Try
+    End Sub
+
+    Private Sub btnDecrypt_Click(sender As Object, e As EventArgs) Handles btnDecrypt.Click
+        Try
+            ' Use inputbox to capture filename desired by user
+            ' TODO: remove default value
+            Dim Filename As String = InputBox("Enter the name of the File which you wish to decrypt", "Select File", "test.txt")
+            Dim FileContents As String = My.Computer.FileSystem.ReadAllText(Filename)
+
+            Dim Key As String = InputBox("Enter the eight character key previously used", "Enter key")
+
         Catch ex As Exception
             MsgBox(ex.Message)
             Exit Sub
@@ -79,4 +94,5 @@
 
         Return Result
     End Function
+
 End Class
