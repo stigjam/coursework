@@ -23,8 +23,6 @@
             MsgBox(ex.Message)
             Exit Sub
         End Try
-
-
     End Sub
 
     Private Function CreateKey() As String
