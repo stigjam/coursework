@@ -29,6 +29,7 @@ Partial Class Form1
         Me.btnEncrypt = New System.Windows.Forms.Button()
         Me.btnDecrypt = New System.Windows.Forms.Button()
         Me.txtBoxKey = New System.Windows.Forms.TextBox()
+        Me.extended = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'lblCoursework
@@ -97,12 +98,24 @@ Partial Class Form1
         Me.txtBoxKey.Size = New System.Drawing.Size(100, 20)
         Me.txtBoxKey.TabIndex = 7
         '
+        'extended
+        '
+        Me.extended.AutoSize = True
+        Me.extended.ForeColor = System.Drawing.Color.LightGray
+        Me.extended.Location = New System.Drawing.Point(127, 216)
+        Me.extended.Name = "extended"
+        Me.extended.Size = New System.Drawing.Size(71, 17)
+        Me.extended.TabIndex = 8
+        Me.extended.Text = "Extended"
+        Me.extended.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlDarkDark
         Me.ClientSize = New System.Drawing.Size(322, 393)
+        Me.Controls.Add(Me.extended)
         Me.Controls.Add(Me.txtBoxKey)
         Me.Controls.Add(Me.btnDecrypt)
         Me.Controls.Add(Me.btnEncrypt)
@@ -123,5 +136,6 @@ Partial Class Form1
     Friend WithEvents btnEncrypt As System.Windows.Forms.Button
     Friend WithEvents btnDecrypt As System.Windows.Forms.Button
     Friend WithEvents txtBoxKey As System.Windows.Forms.TextBox
+    Friend WithEvents extended As System.Windows.Forms.CheckBox
 
 End Class

@@ -13,9 +13,15 @@
             ' Use inputbox to capture filename desired by user
             ' TODO: remove default value
             Dim Filename As String = InputBox("Enter the name of the File which you wish to encrypt", "Select File", "sample.txt")
-            txtBox1.Text = My.Computer.FileSystem.ReadAllText("Sample Data\" & Filename)
+            Dim FileContents As String = My.Computer.FileSystem.ReadAllText("Sample Data\" & Filename)
+            txtBox1.Text = FileContents
 
-            Dim encryptedText As String = Encrypt(txtBox1.Text, key)
+            If extended.Checked Then
+                FileContents = ExtendedEncode(FileContents)
+
+            End If
+
+            Dim encryptedText As String = Encrypt(FileContents, key)
             txtBox2.Text = encryptedText
             Dim Filename2 As String = InputBox("Enter the name of the file you wish to save", "Input filename", "test.txt")
             My.Computer.FileSystem.WriteAllText(Filename2, encryptedText, False)
@@ -117,6 +123,23 @@
             End If
         Next
 
+        Return Result
+    End Function
+
+    Private Function ExtendedEncode(plainText As String) As String
+        Dim Result As String = ""
+        Dim LengthOfCurrentGroup As Integer = 0
+        For i As Integer = 1 To Len(plainText)
+            Dim Character As Char = Mid(plainText, i, 1)
+            If Character <> " " Then
+                If LengthOfCurrentGroup = 5 Then
+                    Result = Result & " "
+                    LengthOfCurrentGroup = 0
+                End If
+                Result = Result & Character
+                LengthOfCurrentGroup = LengthOfCurrentGroup + 1
+            End If
+        Next
         Return Result
     End Function
 
