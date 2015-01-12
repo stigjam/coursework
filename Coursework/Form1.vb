@@ -31,9 +31,11 @@
             ' TODO: remove default value
             Dim Filename As String = InputBox("Enter the name of the File which you wish to decrypt", "Select File", "test.txt")
             Dim FileContents As String = My.Computer.FileSystem.ReadAllText(Filename)
+            txtBox1.Text = FileContents
 
             Dim Key As String = InputBox("Enter the eight character key previously used", "Enter key")
-
+            Dim decryptedText As String = Decrypt(FileContents, Key)
+            txtBox2.Text = decryptedText
         Catch ex As Exception
             MsgBox(ex.Message)
             Exit Sub
@@ -86,6 +88,29 @@
 
                 If (resultCharacter > 126) Then
                     resultCharacter = resultCharacter - 94
+                End If
+
+                Result = Result + Chr(resultCharacter)
+            End If
+        Next
+
+        Return Result
+    End Function
+
+    Private Function Decrypt(encryptedText As String, key As String) As String
+        Dim Result As String = ""
+        Dim offsetFactor As Integer = GetOffsetFactor(key)
+
+        For Counter As Integer = 1 To Len(encryptedText)
+            Dim LetterToConvert As String = Mid(encryptedText, Counter, 1)
+            If LetterToConvert = " " Then
+                Result = Result & " "
+            Else
+                Dim AsciiCode As Integer = Asc(LetterToConvert)
+                Dim resultCharacter = AsciiCode - offsetFactor
+
+                If (resultCharacter < 33) Then
+                    resultCharacter = resultCharacter + 94
                 End If
 
                 Result = Result + Chr(resultCharacter)
